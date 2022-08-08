@@ -12,5 +12,7 @@ data["latitude"]
 data["longitude"]
 data["city_name"]
 
+weather_response = requests.get(url="https://api.openweathermap.org/data/2.5/weather?lat="+str(data["latitude"])+"&lon="+str(data["longitude"])+"&appid=4ba30de297a5cd3090a995ed997a8fe1&units=metric&lang=kr")
+print(weather_response.json())
 
 print(data)
