@@ -13,4 +13,4 @@ def hello():
     return render_template('index.html', news_list = news_list, href = href, img = img, img_list=img_list, len = len(news_list), sum = sum_list )
 
 if __name__ == "__main__": 
-	app.run(debug = True ) 
+	app.run(debug=True) 
