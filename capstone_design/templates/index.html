@@ -34,13 +34,13 @@
 				<!-- Intro -->
 					<section id="intro" class="wrapper style1 fullscreen fade-up">
 						<div class="inner">
-							<h1>Smart Mirror</h1>
+							<h1 id = "time"></h1>
 							<span><img src="static/images/{{weather_info[0]}}.png"></span>
-							<p id="time"></p>
-							<p id="day"></p>
-							<p id="date"></p>
+							<li>{{weather_info[1]}} {{weather_info[2]}}</li>
+							<li id="day"></li>
+							<li id="date"></li>
 							<!-- 4 -->
-							<p>{{weather_info[1]}} {{weather_info[2]}}</p>
+							
 						</div>
 					</section>
 
@@ -128,6 +128,6 @@
 			<script src="static/assets/js/breakpoints.min.js"></script>
 			<script src="static/assets/js/util.js"></script>
 			<script src="static/assets/js/main.js"></script>
-
+			<script src="static/assets/js/time.js"></script>
 	</body>
 </html>
