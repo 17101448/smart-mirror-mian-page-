@@ -44,9 +44,10 @@ def img_src(news_list):
         res = requests.get(link, headers=headers)
         soup = BeautifulSoup(res.text, 'html.parser')
         contents = soup.find("img", id = "img1")
-        print(contents['data-src'])
-        if not(contents["data-src"].endswith("RANKING")):
-            img_list.append(contents["data-src"])  
+        #print(contents['data-src'])
+        if contents != None: 
+            if not(contents["data-src"].endswith("RANKING")):
+                img_list.append(contents["data-src"])   
     return img_list 
 
 def summary(news_list):
@@ -68,6 +69,7 @@ def summary(news_list):
         datas.append(data)
     for i in range(len(datas)):
         test = summarize(datas[i], word_count=20)
+
         summary_list.append(test)
     
     return summary_list
