@@ -1,5 +1,7 @@
-import requests 
-from bs4  import BeautifulSoup 
+
+import requests
+from bs4  import BeautifulSoup
+
 import bs4.element
 import datetime
 from gensim.summarization.summarizer import summarize
@@ -12,13 +14,15 @@ headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/
 
 def news_crawling():
 
-    # web page information 
+
+    # web page information
     res = requests.get(base_url, headers = headers)
-    # parsing 
+    # parsing
     soup = BeautifulSoup(res.text, 'html.parser')
     lis4 = soup.find('ul', class_='rankingnews_list').find_all("li", limit=50)
-    news_list=[] 
-    href = [] 
+    news_list=[]
+    href = []
+
     img_src=[]
 
     for li in lis4:
@@ -35,16 +39,18 @@ def news_crawling():
 
     return news_list, href, img_src 
 
+
 def img_src(news_list):
     contents_links=[]
-    img_list = [] 
+    img_list = []
+
     for news_link in news_list:
         link = news_link["links"]
+        print(link)
         contents_links.append(link)
         res = requests.get(link, headers=headers)
         soup = BeautifulSoup(res.text, 'html.parser')
         contents = soup.find("img", id = "img1")
-        #print(contents['data-src'])
         if contents != None: 
             if not(contents["data-src"].endswith("RANKING")):
                 img_list.append(contents["data-src"])   
@@ -72,4 +78,5 @@ def summary(news_list):
 
         summary_list.append(test)
     
-    return summary_list
+    return 
+
