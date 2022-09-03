@@ -1,4 +1,4 @@
-from bluetooth import *
+# from bluetooth import *
 import time
 
 commands = [
