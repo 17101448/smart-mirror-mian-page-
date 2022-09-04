@@ -38,8 +38,6 @@ annyang.addCallback('result', function(userSaid) {
     const json_dict = {'speech_recog_result': userSaid};
     const stringify = JSON.stringify(json_dict);
 	
-    /*
-    * 220902 라즈베리 파이 없이 작동하도록 하기 위해 임시 주석 처리
 	// 음성 인식 결과를 서버로 전송
     $.ajax({
         url: '/speech_recog',
@@ -53,7 +51,6 @@ annyang.addCallback('result', function(userSaid) {
             isUpdateAble = true;
         }
     });
-    */
 });
 
 // 최초 웹 페이지 접속 시 IoT on/off 여부를 json 형식으로 받아오는 함수
@@ -113,4 +110,4 @@ function update() {
 //setInitialIotStatus();
 isUpdateAble = true;
 
-// update();
+update();
