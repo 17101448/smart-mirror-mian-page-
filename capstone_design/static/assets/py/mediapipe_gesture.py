@@ -8,7 +8,7 @@ mp_hands = mp.solutions.hands
 class mediapipe_gesture:
 
     def __init__(self):
-        pass
+        self._is_error = False
 
     def start_gesture(self):
         cap = cv.VideoCapture(0)
@@ -24,7 +24,8 @@ class mediapipe_gesture:
 
                 if not success:
                     print("Ignoring empty camera frame.")
-                    continue
+                    self._is_error = True
+                    break
 
                 image.flags.writeable = False
                 image = cv.cvtColor(image, cv.COLOR_BGR2RGB)
@@ -45,8 +46,14 @@ class mediapipe_gesture:
                 cv.imshow("Mediapipe Hands", cv.flip(image, 1))
 
                 if cv.waitKey(5) & 0xFF == 27:
-                    cv.destroyAllWindows()
-                    cap.release()
                     break
+        
+        cv.destroyAllWindows()
+        cap.release()
 
-        return "gesture recog finished"
+        if self._is_error:
+            self._is_error = False
+            return False
+        else:
+            self._is_error = False
+            return True
