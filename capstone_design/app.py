@@ -4,11 +4,13 @@ import ssl
 
 import static.assets.py.IoT as IoT
 import static.assets.py.Recognizer as Recognizer
+import static.assets.py.mediapipe_gesture as mediapipe_gesture
 
 app = Flask(__name__)
 #__name__ 인자는 정적파일과 템플릿을 찾는 데 쓰임 
 import crawling
 iot = IoT.IoT()
+mp_gesture = mediapipe_gesture()
 
 @app.route('/')
 def hello():
@@ -31,6 +33,20 @@ def update_iot_status():
     )
 
     return response
+
+# 220905 제스처 활성화 응답 함수
+@app.route('/gesture_recog', methods=['POST'])
+def gesture_recognition():
+    gesture_result = mp_gesture.start_gesture()
+    result_dict = {"gesture" : "ok"}
+
+    response_dict = app.response_class(
+            response = json.dumps(result_dict),
+            status = 200,
+            mimetype = 'application/json'
+        )
+    
+    return response_dict
 
 @app.route('/speech_recog', methods=['POST'])
 def speech_recognition():
