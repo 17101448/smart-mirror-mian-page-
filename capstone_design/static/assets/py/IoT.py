@@ -26,7 +26,7 @@ mac = [
     ]
 
 # IoT 기기 종류
-iot = ['light', 'boiler', 'fan', 'window', 'curtain', 'valve']
+iot = ['light', 'boiler', 'fan', 'window', 'valve']
 max_iot_len = len(iot)
 
 class IoT:
