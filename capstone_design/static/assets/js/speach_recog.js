@@ -65,10 +65,10 @@ function startVoiceRecog() {
         annyang.start();
         console.log('start annyang record');
 
-        setTimeout(function() {
-            annyang.pause();
-            console.log('pause annyang record');
-        }, 3000);
+        // setTimeout(function() {
+        //     annyang.pause();
+        //     console.log('pause annyang record');
+        // }, 3000);
     }
 }
 
@@ -88,6 +88,7 @@ function sendVoiceRequest(speechResult) {
             //changeIotUi(json_data);
             isUpdateAble = true;
             update();
+            sendGestureRequest();
     }).fail(function(xhr, status, error) {
         console.log('error occured');
     });
@@ -146,27 +147,44 @@ function changeIotUi(json_data) {
 
 // 220717 추가 : n초마다 IoT 상태 업데이트 받아오는 거로 변경
 function update() {
-    setInterval(function() {
-        if (isUpdateAble) {
-            $.ajax({
-                type: 'GET',
-                url: '/update_iot',
-                contentType: 'application/json'
-            }).done(function(json_data) {
-                changeIotUi(json_data);
-                console.log(json_data);
-            }).fail(function(xhr, status, error) {
-                console.log('error');
-            });
-        }
-        else {
-            console.log('cannot update now');
-        }
-    }, 3000);
+    // setInterval(function() {
+    //     if (isUpdateAble) {
+    //         $.ajax({
+    //             type: 'GET',
+    //             url: '/update_iot',
+    //             contentType: 'application/json'
+    //         }).done(function(json_data) {
+    //             changeIotUi(json_data);
+    //             console.log(json_data);
+    //         }).fail(function(xhr, status, error) {
+    //             console.log('error');
+    //         });
+    //     }
+    //     else {
+    //         console.log('cannot update now');
+    //     }
+    // }, 3000);
+    if (isUpdateAble) {
+        $.ajax({
+            type: 'GET',
+            url: '/update_iot',
+            contentType: 'application/json'
+        }).done(function(json_data) {
+            changeIotUi(json_data);
+            console.log(json_data);
+        }).fail(function(xhr, status, error) {
+            console.log('error');
+        });
+    }
+    else {
+        console.log('cannot update now');
+    }
 }
 
 // 최초 접속 시 IoT 상태 UI 갱신
 //setInitialIotStatus();
 isUpdateAble = true;
 
-update();
+// update();
+
+sendGestureRequest();
