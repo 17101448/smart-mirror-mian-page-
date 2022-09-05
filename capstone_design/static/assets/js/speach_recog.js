@@ -29,6 +29,7 @@ startRecog.addEventListener('click', function() {
 
 // 음성 인식 결과 처리 콜백
 annyang.addCallback('result', function(userSaid) {
+    annyang.pause();
     result.innerHTML = userSaid[0];
     isUpdateAble = false;
 
@@ -65,10 +66,14 @@ function startVoiceRecog() {
         annyang.start();
         console.log('start annyang record');
 
-        // setTimeout(function() {
-        //     annyang.pause();
-        //     console.log('pause annyang record');
-        // }, 3000);
+        setTimeout(function() {
+            if (annyang.isListening() === true) {
+                console.log("annyang still running?: " + annyang.isListening());
+                annyang.pause();
+                console.log('pause annyang record');
+                sendGestureRequest();
+            }
+        }, 3000);
     }
 }
 
@@ -88,7 +93,6 @@ function sendVoiceRequest(speechResult) {
             //changeIotUi(json_data);
             isUpdateAble = true;
             update();
-            sendGestureRequest();
     }).fail(function(xhr, status, error) {
         console.log('error occured');
     });
@@ -109,7 +113,6 @@ function sendGestureRequest() {
         startVoiceRecog();
     }).fail(function(xhr, status, error) {
         console.log('error occured');
-        sendGestureRequest();
     });
 }
 
